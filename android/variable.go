@@ -20,6 +20,8 @@ import (
 	"runtime"
 	"strings"
 
+	"syberia/soong/android"
+
 	"github.com/google/blueprint/proptools"
 )
 
@@ -115,10 +117,6 @@ type variableProperties struct {
 			Srcs         []string
 		}
 
-		Needs_text_relocations struct {
-			Cppflags []string
-		}
-
 		Has_legacy_mmap struct {
 			Cppflags []string
 		}
@@ -131,9 +129,8 @@ type variableProperties struct {
 			Cppflags []string
 		}
 
-		Target_shim_libs struct {
-			Cppflags []string
-		}
+		// include Syberia variables
+		*android.Product_variables
 	} `android:"arch_variant"`
 }
 
@@ -252,11 +249,12 @@ type productVariables struct {
 
 	VendorVars map[string]map[string]string `json:",omitempty"`
 
-	Needs_text_relocations     *bool `json:",omitempty"`
 	Has_legacy_mmap            *bool `json:",omitempty"`
 	Needs_prelink_support      *bool `json:",omitempty"`
 	Needs_non_pie_support      *bool `json:",omitempty"`
-	Target_shim_libs           *string `json:",omitempty"`
+
+	// include Syberia variables
+	*android.ProductVariables
 }
 
 func boolPtr(v bool) *bool {
