@@ -1055,13 +1055,13 @@ func (c *deviceConfig) TargetFSConfigGen() []string {
 }
 
 func (c *deviceConfig) QTIAudioPath() string {
-	return String(c.config.productVariables.QTIAudioPath)
+	return String(c.config.productVariables.Syberia.QTIAudioPath)
 }
 
 func (c *deviceConfig) QTIDisplayPath() string {
-	return String(c.config.productVariables.QTIDisplayPath)
+	return String(c.config.productVariables.Syberia.QTIDisplayPath)
 }
 
 func (c *deviceConfig) QTIMediaPath() string {
-	return String(c.config.productVariables.QTIMediaPath)
+	return String(c.config.productVariables.Syberia.QTIMediaPath)
 }
