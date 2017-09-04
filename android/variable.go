@@ -130,7 +130,7 @@ type variableProperties struct {
 		}
 
 		// include Syberia variables
-		*android.Product_variables
+		Syberia android.Product_variables
 	} `android:"arch_variant"`
 }
 
@@ -254,7 +254,7 @@ type productVariables struct {
 	Needs_non_pie_support      *bool `json:",omitempty"`
 
 	// include Syberia variables
-	*android.ProductVariables
+	Syberia android.ProductVariables
 }
 
 func boolPtr(v bool) *bool {
