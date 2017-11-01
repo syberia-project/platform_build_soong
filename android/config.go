@@ -779,6 +779,10 @@ func (c *deviceConfig) DeviceKernelHeaderDirs() []string {
 	return c.config.productVariables.DeviceKernelHeaders
 }
 
+func (c *deviceConfig) SpecificCameraParametersLibrary() string {
+	return String(c.config.productVariables.Syberia.Specific_camera_parameter_library)
+}
+
 func (c *deviceConfig) NativeCoverageEnabled() bool {
 	return Bool(c.config.productVariables.NativeCoverage)
 }
