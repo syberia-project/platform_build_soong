@@ -328,6 +328,7 @@ type builderFlags struct {
 	emitXrefs     bool
 
 	assemblerWithCpp bool
+	sdclang        bool
 
 	systemIncludeFlags string
 
@@ -520,6 +521,13 @@ func TransformSourceToObj(ctx android.ModuleContext, subdir string, srcFiles and
 		ccDesc := ccCmd
 
 		ccCmd = "${config.ClangBin}/" + ccCmd
+		var extraFlags string
+			if flags.sdclang {
+				ccCmd = "${config.SDClangBin}/" + ccCmd
+				extraFlags = " ${config.SDClangFlags}"
+			} else {
+				ccCmd = "${config.ClangBin}/" + ccCmd
+			}
 
 		var implicitOutputs android.WritablePaths
 		if coverage {
@@ -537,7 +545,7 @@ func TransformSourceToObj(ctx android.ModuleContext, subdir string, srcFiles and
 			Implicits:       cFlagsDeps,
 			OrderOnly:       pathDeps,
 			Args: map[string]string{
-				"cFlags": moduleFlags,
+				"cFlags": moduleCflags + extraFlags,
 				"ccCmd":  ccCmd,
 			},
 		})
@@ -643,6 +651,13 @@ func TransformObjToDynamicBinary(ctx android.ModuleContext,
 	crtBegin, crtEnd android.OptionalPath, groupLate bool, flags builderFlags, outputFile android.WritablePath, implicitOutputs android.WritablePaths) {
 
 	ldCmd := "${config.ClangBin}/clang++"
+	var extraFlags string
+		if flags.sdclang {
+			ldCmd = "${config.SDClangBin}/clang++"
+			extraFlags = " ${config.SDClangFlags}"
+		} else {
+			ldCmd = "${config.ClangBin}/clang++"
+		}
 
 	var libFlagsList []string
 
@@ -697,7 +712,7 @@ func TransformObjToDynamicBinary(ctx android.ModuleContext,
 		"crtBegin":      crtBegin.String(),
 		"libFlags":      strings.Join(libFlagsList, " "),
 		"extraLibFlags": flags.extraLibFlags,
-		"ldFlags":       flags.globalLdFlags + " " + flags.localLdFlags,
+		"ldFlags":       flags.globalLdFlags + " " + flags.localLdFlags + " " + extraFlags,
 		"crtEnd":        crtEnd.String(),
 	}
 	if ctx.Config().IsEnvTrue("RBE_CXX_LINKS") {
@@ -800,6 +815,19 @@ func SourceAbiDiff(ctx android.ModuleContext, inputDump android.Path, referenceD
 	if isVndkExt {
 		localAbiCheckAllowFlags = append(localAbiCheckAllowFlags, "-allow-extensions")
 	}
+	var sdclangAbiCheckIgnoreList = []string{
+		"libbinder",
+		"libhwbinder",
+		"libprotobuf-cpp-lite",
+		"libprotobuf-cpp-full",
+		"libunwindstack",
+		"libvixl-arm64",
+		"libvixl-arm",
+	}
+	if config.SDClang && !inList("-advice-only", localAbiCheckAllowFlags) &&
+		inList(ctx.ModuleName(), sdclangAbiCheckIgnoreList) {
+		localAbiCheckAllowFlags = append(localAbiCheckAllowFlags, "-advice-only")
+	}
 
 	ctx.Build(pctx, android.BuildParams{
 		Rule:        sAbiDiff,
@@ -852,6 +880,13 @@ func TransformObjsToObj(ctx android.ModuleContext, objFiles android.Paths,
 	flags builderFlags, outputFile android.WritablePath, deps android.Paths) {
 
 	ldCmd := "${config.ClangBin}/clang++"
+        var extraFlags string
+		if flags.sdclang {
+			ldCmd = "${config.SDClangBin}/clang++"
+			extraFlags = " ${config.SDClangFlags}"
+		} else {
+			ldCmd = "${config.ClangBin}/clang++"
+		}
 
 	rule := partialLd
 	args := map[string]string{
