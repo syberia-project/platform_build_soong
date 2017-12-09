@@ -446,7 +446,6 @@ func (sanitize *sanitize) flags(ctx ModuleContext, flags Flags) Flags {
 	minimalRuntimePath := "${config.ClangAsanLibDir}/" + minimalRuntimeLib
 	builtinsRuntimeLib := config.BuiltinsRuntimeLibrary(ctx.toolchain()) + ".a"
 	builtinsRuntimePath := "${config.ClangAsanLibDir}/" + builtinsRuntimeLib
-
 	if sanitize.Properties.MinimalRuntimeDep {
 		flags.Local.LdFlags = append(flags.Local.LdFlags,
 			minimalRuntimePath,
