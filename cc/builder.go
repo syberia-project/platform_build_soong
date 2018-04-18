@@ -545,7 +545,7 @@ func TransformSourceToObj(ctx android.ModuleContext, subdir string, srcFiles and
 			Implicits:       cFlagsDeps,
 			OrderOnly:       pathDeps,
 			Args: map[string]string{
-				"cFlags": moduleCflags + extraFlags,
+				"cFlags": moduleFlags + extraFlags,
 				"ccCmd":  ccCmd,
 			},
 		})
@@ -891,7 +891,7 @@ func TransformObjsToObj(ctx android.ModuleContext, objFiles android.Paths,
 	rule := partialLd
 	args := map[string]string{
 		"ldCmd":   ldCmd,
-		"ldFlags": flags.globalLdFlags + " " + flags.localLdFlags,
+		"ldFlags": flags.globalLdFlags + " " + flags.localLdFlags + " " + extraFlags,
 	}
 	if ctx.Config().IsEnvTrue("RBE_CXX_LINKS") {
 		rule = partialLdRE

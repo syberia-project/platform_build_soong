@@ -2182,10 +2182,6 @@ func checkDoubleLoadableLibraries(ctx android.TopDownMutatorContext) {
 func (c *Module) sdclang(ctx BaseModuleContext) bool {
 	sdclang := Bool(c.Properties.Sdclang)
 
-	if !c.clang(ctx) {
-		return false
-	}
-
 	// SDLLVM is not for host build
 	if ctx.Host() || config.ForceSDClangOff {
 		return false

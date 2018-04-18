@@ -21,7 +21,6 @@ import (
 	"os"
 	//"path"
 	//"path/filepath"
-	"runtime"
 	"strconv"
 	"strings"
 
@@ -384,19 +383,19 @@ func setSdclangVars() {
 	}
 
 	// Override SDCLANG_PATH if the variable is set in the environment
-	pctx.VariableFunc("SDClangBin", func(config android.Config) (string, error) {
-		if override := config.Getenv("SDCLANG_PATH"); override != "" {
-			return override, nil
+	pctx.VariableFunc("SDClangBin", func(ctx android.PackageVarContext) string {
+		if override := ctx.Config().Getenv("SDCLANG_PATH"); override != "" {
+			return override
 		}
-		return sdclangPath, nil
+		return sdclangPath
 	})
 
 	// Override SDCLANG_COMMON_FLAGS if the variable is set in the environment
-	pctx.VariableFunc("SDClangFlags", func(config android.Config) (string, error) {
-		if override := config.Getenv("SDCLANG_COMMON_FLAGS"); override != "" {
-			return override, nil
+	pctx.VariableFunc("SDClangFlags", func(ctx android.PackageVarContext) string {
+		if override := ctx.Config().Getenv("SDCLANG_COMMON_FLAGS"); override != "" {
+			return override
 		}
-		return sdclangAEFlag + " " + sdclangFlags, nil
+		return sdclangAEFlag + " " + sdclangFlags
 	})
 
 	SDClangPath = sdclangPath
