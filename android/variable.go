@@ -127,6 +127,16 @@ type variableProperties struct {
 			Srcs         []string
 		}
 
+		Device_support_hwfde struct {
+			Cflags []string
+			Header_libs  []string
+			Shared_libs  []string
+		}
+
+		Device_support_hwfde_perf struct {
+			Cflags []string
+		}
+
 		// include Syberia variables
 		Syberia android.Product_variables
 	} `android:"arch_variant"`
@@ -229,6 +239,8 @@ type productVariables struct {
 	OdmPath             *string `json:",omitempty"`
 	ProductPath         *string `json:",omitempty"`
 	ProductServicesPath *string `json:",omitempty"`
+	Device_support_hwfde       *bool `json:",omitempty"`
+	Device_support_hwfde_perf  *bool `json:",omitempty"`
 
 	ClangTidy  *bool   `json:",omitempty"`
 	TidyChecks *string `json:",omitempty"`
