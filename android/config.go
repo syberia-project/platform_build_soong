@@ -304,7 +304,7 @@ func NewConfig(srcDir, buildDir string) (Config, error) {
 	}
 
 	if archConfig != nil {
-		deviceTargets, err := decodeArchSettings(archConfig)
+		deviceTargets, err := decodeArchSettings(Android, archConfig)
 		if err != nil {
 			return Config{}, err
 		}
