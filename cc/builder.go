@@ -477,7 +477,7 @@ func TransformSourceToObj(ctx android.ModuleContext, subdir string, srcFiles and
 				// support exporting dependencies.
 				Implicit: objFile,
 				Args: map[string]string{
-					"cFlags":    moduleToolingCflags + extraFlags + vendorFlags,
+					"cFlags":    moduleToolingCflags,
 					"tidyFlags": flags.tidyFlags,
 				},
 			})
