@@ -435,7 +435,6 @@ func (sanitize *sanitize) flags(ctx ModuleContext, flags Flags) Flags {
 			_, flags.LdFlags = removeFromList("-Wl,-plugin-opt,O1", flags.LdFlags)
 			flags.CFlags = append(flags.CFlags, "-fuse-ld=qcld")
 			flags.LdFlags = append(flags.LdFlags, "-fuse-ld=qcld")
-			flags.CFlags = append(flags.CFlags, "-fno-sanitize=implicit-integer-sign-change")
 			if ctx.Target().Arch.ArchType.Name == "arm64" {
 				flags.LdFlags = append(flags.LdFlags, "-Wl,-m,aarch64linux_androideabi")
 			}
