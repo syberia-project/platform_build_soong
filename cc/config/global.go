@@ -332,8 +332,8 @@ func useSdclang() bool {
 		// Parse the config file
 		if err := decoder.Decode(&varConfig); err == nil {
 			config := varConfig.(map[string]interface{})
-			// Retrieve the Syberia block
-			if dev, ok := config["Syberia"]; ok {
+			// Retrieve the Carbon block
+			if dev, ok := config["Carbon"]; ok {
 				devConfig := dev.(map[string]interface{})
 				// Get value of TARGET_USE_SDCLANG
 				if _, ok := devConfig["Target_use_sdclang"]; ok {
