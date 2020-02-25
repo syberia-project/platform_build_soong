@@ -173,6 +173,14 @@ func init() {
 
 		// Disable this warning because we don't care about behavior with older compilers.
 		"-Wno-return-std-move-in-c++11",
+		
+		// Added for clang-11.0.0
+		"-Wno-deprecated-copy",
+		"-Wno-misleading-indentation",
+		"-Wno-non-c-typedef-for-linkage",
+		"-Wno-range-loop-construct",
+		"-Wno-zero-as-null-pointer-constant",
+		"-Wno-error=void-pointer-to-int-cast",
 	}, " "))
 
 	// Extra cflags for projects under external/ directory to disable warnings that are infeasible
@@ -188,6 +196,9 @@ func init() {
 		// Bug: http://b/29823425 Disable -Wnull-dereference until the
 		// new instances detected by this warning are fixed.
 		"-Wno-null-dereference",
+		
+		// Added for clang-11.0.0
+		"-Wno-pointer-sign",
 	}, " "))
 }
 
