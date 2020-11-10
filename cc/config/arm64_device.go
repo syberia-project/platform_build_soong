@@ -80,6 +80,10 @@ var (
 			// Use cortex-a55 because kryo385 is not supported in GCC/clang.
 			"-mcpu=cortex-a55",
 		},
+                "kryo485": []string{
+                        // Use cortex-a55 because kryo485 is not supported in GCC/clang.
+                        "-mcpu=cortex-a55",
+                },
 		"exynos-m1": []string{
 			"-mcpu=exynos-m1",
 		},
@@ -146,6 +150,7 @@ var (
 		"kryo":       "${config.Arm64ClangKryoCflags}",
 		"kryo300":    "${config.Arm64ClangCortexA55Cflags}",
 		"kryo385":    "${config.Arm64ClangCortexA55Cflags}",
+                "kryo485":    "${config.Arm64ClangCortexA55Cflags}",
 		"exynos-m1":  "${config.Arm64ClangExynosM1Cflags}",
 		"exynos-m2":  "${config.Arm64ClangExynosM2Cflags}",
 	}
