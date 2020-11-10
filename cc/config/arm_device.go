@@ -233,6 +233,8 @@ func init() {
 		strings.Join(armClangCpuVariantCflags["krait"], " "))
 	pctx.StaticVariable("ArmClangKryoCflags",
 		strings.Join(armClangCpuVariantCflags["kryo"], " "))
+	pctx.StaticVariable("ArmClangKryo485Cflags",
+		strings.Join(armClangCpuVariantCflags["kryo485"], " "))
 }
 
 var (
@@ -259,7 +261,7 @@ var (
 		"kryo":           "${config.ArmClangKryoCflags}",
 		"kryo300":        "${config.ArmClangCortexA55Cflags}",
 		"kryo385":        "${config.ArmClangCortexA55Cflags}",
-                "kryo485":        "${config.ArmClangCortexA55Cflags}",
+                "kryo485":        "${config.ArmClangKryo485Cflags}",
 		"exynos-m1":      "${config.ArmClangCortexA53Cflags}",
 		"exynos-m2":      "${config.ArmClangCortexA53Cflags}",
 	}
