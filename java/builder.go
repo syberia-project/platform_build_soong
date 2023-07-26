@@ -51,7 +51,7 @@ var (
 				`-source $javaVersion -target $javaVersion ` +
 				`-d $outDir -s $annoDir @$out.rsp @$srcJarDir/list ; fi ) && ` +
 				`$zipTemplate${config.SoongZipCmd} -jar -o $out -C $outDir -D $outDir && ` +
-				`rm -rf "$srcJarDir"`,
+				`rm -rf "$srcJarDir" "$outDir"`,
 			CommandDeps: []string{
 				"${config.JavacCmd}",
 				"${config.SoongZipCmd}",
